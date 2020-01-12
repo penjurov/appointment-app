@@ -1,0 +1,32 @@
+﻿[v-cloak] {
+    display: none;
+}
+
+body {
+    color: #777;
+}
+
+.container.body-content {
+    margin-top: 70px;
+}
+
+.top-buffer {
+    margin-top: 10px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+}
+
+
+.error-message {
+    color: red;
+}
+
+input.validation-error {
+    border-color: red !important;
+}

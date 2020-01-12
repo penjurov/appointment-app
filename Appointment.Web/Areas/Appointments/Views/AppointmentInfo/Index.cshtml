@@ -1,0 +1,96 @@
+﻿@using Appointment.Web.Infrastructure.Bundles
+@model string
+
+@{
+    ViewBag.Title = SiteMap.CurrentNode.Title;
+}
+
+@section scripts {
+    @Html.RenderScripts("~/Scripts/moment-locale-bg.js",
+                        "~/Scripts/bootstrap-datetimepicker.min.js",
+                        "~/Scripts/vue-bootstrap-datetimepicker.js",
+                        "~/Areas/Appointments/Scripts/add-appointment-vm.js")
+}
+
+@section styles {
+    @Html.RenderStyles("~/Areas/Appointments/Content/Add.css", "~/Content/Buttons.css", "~/Content/Dropdown.css", "~/Content/bootstrap-datetimepicker.min.css")
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+}
+
+@Html.Hidden("model", Model)
+
+<div id="add-appointment-wrapper" class="add-appointment-wrapper row" v-cloak>
+    <div class="row">
+        <div class="col-lg-6 col-md-12 col-lg-offset-3 body">
+            <div class="confirm-title">
+                Служител
+            </div>
+            <div class="confirm-content">
+                <div class="custom-dropdown" v-bind:class="{ 'validation-error': errors.employee }">
+                    <select v-model="appointment.EmployeeId" v-bind:class="{ 'validation-error': errors.employee }">
+                        <option v-for="employee in model.Employees" v-bind:value="employee.Id">
+                            {{employee.Name}}
+                        </option>
+                    </select>
+                    <i class=""></i>
+                    <div v-if="errors.employee">
+                        <span class="error-message">{{errors.employee}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="confirm-title top-buffer">
+                Партньор
+            </div>
+            <div class="confirm-content">
+                <div class="custom-dropdown" v-bind:class="{ 'validation-error': errors.partner }">
+                    <select v-model="appointment.PartnerId" v-bind:class="{ 'validation-error': errors.partner }">
+                        <option v-for="partner in model.Partners" v-bind:value="partner.Id">
+                            {{partner.Name}}
+                        </option>
+                    </select>
+                    <div v-if="errors.partner">
+                        <span class="error-message">{{errors.partner}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="confirm-title top-buffer">
+                Тип
+            </div>
+            <div class="confirm-content">
+                <div class="custom-dropdown" v-bind:class="{ 'validation-error': errors.type }">
+                    <select v-model="appointment.TypeId" v-bind:class="{ 'validation-error': errors.type }">
+                        <option v-for="type in model.Types" v-bind:value="type.Id">
+                            {{type.Name}}
+                        </option>
+                    </select>
+                    <div v-if="errors.type">
+                        <span class="error-message">{{errors.type}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="confirm-title top-buffer">
+                Дата
+            </div>
+            <div class="confirm-content">
+                <date-picker v-model="appointment.Date"
+                             v-bind:config="dateOptions"
+                             v-bind:class="{'validation-error': errors.date }"></date-picker>
+
+                <div v-if="errors.date">
+                    <span class="error-message">{{errors.date}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row top-buffer">
+        <div class="col-lg-6 col-md-12 col-lg-offset-3 body">
+            <button type="button" class="btn confirm" v-on:click="save">Запис</button>
+            <button type="button" class="btn cancel" v-on:click="clear">Изчисти</button>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("Alert")
+@Html.Partial("Confirm")

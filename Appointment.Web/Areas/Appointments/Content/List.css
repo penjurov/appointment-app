@@ -1,0 +1,10 @@
+﻿.total-value {
+    margin-top: 20px;
+    font-size: 20px;
+    float: right;
+    font-weight: 600;
+}
+
+.btn.confirm {
+    margin-right: 10px;
+}

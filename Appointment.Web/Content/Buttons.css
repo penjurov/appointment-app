@@ -1,0 +1,35 @@
+﻿.btn {
+    min-width: 90px;
+    max-width: 200px;
+    border-radius: 20px;
+    font-weight: 900;
+    font-family: 'IBM Plex Sans';
+    font-size: 14px;
+    float: right;
+    /*display: inline-flex;*/
+    height: 40px;
+}
+
+.btn.confirm {
+    color: #1245EB;
+    border-color: #1245EB;
+    background-color: white;
+}
+
+    .btn.confirm:hover {
+        color: white;
+        border-color: #1245EB;
+        background-color: #1245EB;
+    }
+
+.btn.cancel {
+    color: #999999;
+    border-color: #F2F2F2;
+    background-color: #F2F2F2;
+}
+
+   .btn.cancel:hover {
+        color: #F2F2F2;
+        border-color: #999999;
+        background-color: #999999;
+    }

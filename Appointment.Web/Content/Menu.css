@@ -1,0 +1,15 @@
+﻿.icon {
+    font-size: 40px;
+    color: #777;
+}
+
+.link {
+    font-family: 'IBM Plex Sans';
+    font-size: 18px;
+    color: #777;
+}
+
+    .link:hover {
+        text-decoration: none;
+        color: #5e5e5e;
+    }

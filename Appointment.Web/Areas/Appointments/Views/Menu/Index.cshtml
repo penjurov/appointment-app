@@ -1,0 +1,40 @@
+﻿@using Appointment.Common;
+@using Appointment.Web.Infrastructure.Bundles
+@{
+    ViewBag.Title = SiteMap.CurrentNode.Title;
+}
+
+@section styles {
+    @Html.RenderStyles("~/Content/Menu.css")
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
+}
+
+<div class="row well top-bufer menu">
+    <div class="row">
+        <div class="col-md-10">
+            <h2>@ViewBag.Title</h2>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <div class="icon">
+                <i class="fas fa-user-friends"></i>
+            </div>
+
+            @Html.ActionLink(GlobalConstants.AddAppointment, "Index", "AppointmentInfo", null, new { @class = "link" })
+        </div>
+
+        @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
+        {
+            <div class="col-md-4 text-center">
+                <div class="icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+
+                @Html.ActionLink(GlobalConstants.AppointmentControllerTitle, "List", "AppointmentInfo", null, new { @class = "link" })
+            </div>
+        }
+    </div>
+</div>

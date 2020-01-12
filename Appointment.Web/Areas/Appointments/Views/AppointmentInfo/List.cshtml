@@ -1,0 +1,108 @@
+﻿@using Appointment.Web.Infrastructure.Bundles
+@model string
+
+@{
+    ViewBag.Title = SiteMap.CurrentNode.Title;
+}
+
+@section scripts {
+    @Html.RenderScripts("~/Scripts/moment-locale-bg.js",
+                        "~/Scripts/bootstrap-datetimepicker.min.js",
+                        "~/Scripts/vue-bootstrap-datetimepicker.js",
+                        "~/Areas/Appointments/Scripts/appointments-list-vm.js")
+}
+
+@section styles {
+    @Html.RenderStyles("~/Areas/Appointments/Content/List.css", "~/Content/Buttons.css", "~/Content/Dropdown.css", "~/Content/bootstrap-datetimepicker.min.css")
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+}
+
+@Html.Hidden("model", Model)
+
+<div id="appointments-list-wrapper" class="appointments-list-wrapper top-buffer" v-cloak>
+    <div data-role="wrapper">
+        <div data-role="toolbar" class="clearfix">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-xs-12">
+                    <label>Служител:</label>
+                    <div class="custom-dropdown">
+                        <select v-model="filter.EmployeeId">
+                            <option v-for="employee in model.Employees" v-bind:value="employee.Id">
+                                {{employee.Name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-xs-12">
+                    <label>Партньор:</label>
+                    <div class="custom-dropdown">
+                        <select v-model="filter.PartnerId">
+                            <option v-for="partner in model.Partners" v-bind:value="partner.Id">
+                                {{partner.Name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-xs-12">
+                    <label>Тип:</label>
+                    <div class="custom-dropdown">
+                        <select v-model="filter.TypeId">
+                            <option v-for="type in model.Types" v-bind:value="type.Id">
+                                {{type.Name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                
+            </div>
+
+            <div class="row top-buffer">
+                <div class="col-lg-3 col-md-6 col-xs-12">
+                    <label>От:</label>
+                    <date-picker v-model="filter.StartDate" v-bind:config="dateOptions"></date-picker>
+                </div>
+                <div class="col-lg-3 col-md-6 col-xs-12">
+                    <label>До:</label>
+                    <date-picker v-model="filter.EndDate" v-bind:config="dateOptions"></date-picker>
+                </div>
+            </div>
+
+            <div class="row top-buffer">
+                <div class="col-xs-12">
+                    <button type="button" class="btn cancel" v-on:click="clear">Изчисти</button>
+                    <button type="button" class="btn confirm" v-on:click="search">Търси</button>
+                </div>
+            </div>
+
+            <div class="row total-value">
+                Общо пари: {{totalValue}}
+            </div>
+
+        </div>
+    </div>
+
+    <table class="table top-buffer">
+        <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Служител</th>
+                <th>Партньор</th>
+                <th>Събитие</th>
+                <th>Стойност</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="appointment in appointments">
+                <td>{{getFormatedDate(appointment.Date)}}</td>
+                <td>{{appointment.EmployeeName}}</td>
+                <td>{{appointment.PartnerName}}</td>
+                <td>{{appointment.TypeName}}</td>
+                <td>{{appointment.TypeValue}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

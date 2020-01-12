@@ -1,0 +1,27 @@
+﻿@using Appointment.Web.Infrastructure.Bundles
+
+<div id="alert-wrapper">
+    <div v-bind:class="{ modalVisible: isVisible }" class="modal custom-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on:click="isVisible = false">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div v-if="title" class="confirm-title normal">
+                        {{title}}
+                    </div>
+                    <div v-if="body" v-html="body" class="confirm-content normal">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn confirm" v-on:click="onOkClicked">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.RenderScripts("~/Scripts/Shared/alert.js")

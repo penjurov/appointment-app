@@ -1,0 +1,17 @@
+﻿@using Appointment.Common
+@{
+    const string ControllerName = "Menu";
+    const string ActionName = "Index";
+}
+
+<ul class="nav navbar-nav">
+    @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
+    {
+        <li>@Html.ActionLink(GlobalConstants.AdministrationControllerTitle, ActionName, ControllerName, new { area = GlobalConstants.AdminAreaName }, null)</li>
+    }
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <li>@Html.ActionLink(GlobalConstants.AppointmentControllerTitle, ActionName, ControllerName, new { area = GlobalConstants.AppointmentAreaName }, null)</li>
+    }
+</ul>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0 MvcSiteMapSchema.xsd"
+            enableLocalization="true">
+
+  <mvcSiteMapNode title="" controller="Home" action="Index">
+    <mvcSiteMapNode title="Администрация" area="Admin" controller="Menu" action="Index">
+      <mvcSiteMapNode title="Служители" controller="Employees" action="Index"/>
+      <mvcSiteMapNode title="Партньори" controller="Partners" action="Index"/>
+      <mvcSiteMapNode title="Видове ангажименти" controller="AppointmentType" action="Index"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Ангажименти" area="Appointments" controller="Menu" action="Index">
+      <mvcSiteMapNode title="Добави ангажимент" controller="AppointmentInfo" action="Index"/>
+      <mvcSiteMapNode title="Всички ангажименти" controller="AppointmentInfo" action="List"/>
+    </mvcSiteMapNode>
+
+  </mvcSiteMapNode>
+
+</mvcSiteMap>

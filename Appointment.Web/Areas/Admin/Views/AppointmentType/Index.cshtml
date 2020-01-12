@@ -1,0 +1,90 @@
+﻿@using Appointment.Web.Infrastructure.Bundles
+
+@{
+    ViewBag.Title = SiteMap.CurrentNode.Title;
+}
+
+@section scripts {
+    @Html.RenderScripts("~/Areas/Admin/Scripts/appointment-type-vm.js")
+}
+
+@section styles {
+    @Html.RenderStyles("~/Areas/Admin/Content/Admin.css", "~/Content/Modal.css")
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
+}
+
+<div id="appointment-type-wrapper" class="admin-wrapper top-buffer" v-cloak>
+    <div data-role="wrapper">
+        <div data-role="toolbar" class="clearfix">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-8 col-xs-12 form-group">
+                    <div class="pull-md-left toolbar-btn-group">
+                        <button type="button" class="btn btn-primary" v-on:click="addAppointmentType">Добави вид ангажимент</button>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-8 col-xs-12 pull-right">
+                    <input v-model="searchKeyword" placeholder="Име" v-on:keydown="onKeywordChanged" type="text" class="form-control" />
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <table class="table top-buffer">
+        <thead>
+            <tr>
+                <th>Име</th>
+                <th>Стойност</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="appointmentType in appointmentTypes">
+                <td>{{appointmentType.Name}}</td>
+                <td>{{appointmentType.Value}}</td>
+                <td>
+                    <span v-on:click="removeAppointmentType(appointmentType)" class="glyphicon glyphicon-remove cursor-pointer pull-right"></span>
+                    <span v-on:click="editAppointmentType(appointmentType)" class="glyphicon glyphicon-pencil cursor-pointer pull-right"></span>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <div v-bind:class="{ modalVisible: isModalVisible }" class="modal custom-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on:click="isModalVisible = false">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body confirm-body">
+                    <div class="confirm-title">
+                        ВИД АНГАЖИМЕНТ
+                    </div>
+                    <div class="confirm-content">
+                        <input type="text" class="form-control" placeholder="Име" v-model="currentAppointmentType.Name" v-bind:class="{ 'validation-error': errors.name }" />
+                        <div v-if="errors.name">
+                            <span class="error-message">{{errors.name}}</span>
+                        </div>
+                    </div>
+                    <div class="confirm-content">
+                        <input type="text" class="form-control" placeholder="Стойност" v-model="currentAppointmentType.Value" v-bind:class="{ 'validation-error': errors.value }" />
+                        <div v-if="errors.value">
+                            <span class="error-message">{{errors.value}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn confirm" v-on:click="saveAppointmentType">Save</button>
+                    <button type="button" class="btn cancel" v-on:click="isModalVisible = false">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("Alert")
+@Html.Partial("Confirm")
