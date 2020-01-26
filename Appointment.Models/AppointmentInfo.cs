@@ -13,6 +13,9 @@ namespace Appointment.Models
         public DateTime Date { get; set; }
 
         [Required]
+        public decimal Count { get; set; }
+
+        [Required]
         public Guid TypeId { get; set; }
 
         [Required]

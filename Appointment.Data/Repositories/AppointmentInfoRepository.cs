@@ -29,6 +29,7 @@ namespace Appointment.Data.Repositories
                     .OrderBy(h => h.Id)
                     .Select(x => new AppointmentInfoProxy
                     {
+                        Id = x.Id,
                         EmployeeId = x.EmployeeId,
                         EmployeeName = x.Employee.Name,
                         PartnerId = x.PartnerId,
@@ -36,14 +37,15 @@ namespace Appointment.Data.Repositories
                         TypeId = x.TypeId,
                         TypeName = x.Type.Name,
                         TypeValue = x.Type.Value,
-                        Date = x.Date
+                        Date = x.Date,
+                        Count = x.Count
                     });
 
             filter.Count = result.Count();
 
             if (filter.Count > 0)
             {
-                filter.TotalValue = result.Sum(x => x.TypeValue);
+                filter.TotalValue = result.Sum(x => x.TypeValue * x.Count);
             }
 
             return result.OrderByFilter(filter).PageByFilter(filter);

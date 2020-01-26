@@ -13,7 +13,7 @@
 }
 
 @section styles {
-    @Html.RenderStyles("~/Areas/Appointments/Content/List.css", "~/Content/Buttons.css", "~/Content/Dropdown.css", "~/Content/bootstrap-datetimepicker.min.css")
+    @Html.RenderStyles("~/Areas/Appointments/Content/List.css", "~/Content/Buttons.css", "~/Content/Modal.css", "~/Content/Dropdown.css", "~/Content/bootstrap-datetimepicker.min.css")
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 }
@@ -57,7 +57,7 @@
                     </div>
                 </div>
 
-                
+
             </div>
 
             <div class="row top-buffer">
@@ -93,6 +93,9 @@
                 <th>Партньор</th>
                 <th>Събитие</th>
                 <th>Стойност</th>
+                <th>Брой</th>
+                <th>Общо</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -102,7 +105,13 @@
                 <td>{{appointment.PartnerName}}</td>
                 <td>{{appointment.TypeName}}</td>
                 <td>{{appointment.TypeValue}}</td>
+                <td>{{appointment.Count}}</td>
+                <td>{{appointment.Total}}</td>
+                <td><span class="glyphicon glyphicon-remove" v-on:click="remove(appointment)"></span></td>
             </tr>
         </tbody>
     </table>
 </div>
+
+@Html.Partial("Confirm")
+@Html.Partial("Alert")

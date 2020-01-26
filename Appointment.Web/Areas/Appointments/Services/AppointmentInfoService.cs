@@ -44,6 +44,11 @@ namespace Appointment.Web.Areas.Appointments.Services
                 throw new UserException("Изберете дата");
             }
 
+            if (proxy.Count <= 0)
+            {
+                throw new UserException("Невалиден брой");
+            }
+
             try
             {
                 var repo = this.RepoFactory.Get<AppointmentInfoRepository>();
@@ -53,7 +58,8 @@ namespace Appointment.Web.Areas.Appointments.Services
                     EmployeeId = proxy.EmployeeId,
                     PartnerId = proxy.PartnerId,
                     TypeId = proxy.TypeId,
-                    Date = proxy.Date
+                    Date = proxy.Date,
+                    Count = proxy.Count
                 };
 
                 repo.Add(appointmentInfo);
@@ -63,6 +69,13 @@ namespace Appointment.Web.Areas.Appointments.Services
             {
                 throw new UserException("Грешка при записването на ангажиментът"); ;
             }
+        }
+
+        internal void Delete(Guid id)
+        {
+            var repo = this.RepoFactory.Get<AppointmentInfoRepository>();
+            var appointment = repo.GetById(id);
+            repo.Delete(appointment);
         }
 
         public IEnumerable<AppointmentInfoProxy> Get(AppointmentInfoFilter filter)

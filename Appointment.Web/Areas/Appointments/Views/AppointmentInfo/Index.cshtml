@@ -13,7 +13,7 @@
 }
 
 @section styles {
-    @Html.RenderStyles("~/Areas/Appointments/Content/Add.css", "~/Content/Buttons.css", "~/Content/Dropdown.css", "~/Content/bootstrap-datetimepicker.min.css")
+    @Html.RenderStyles("~/Areas/Appointments/Content/Add.css", "~/Content/Buttons.css", "~/Content/Modal.css", "~/Content/Dropdown.css", "~/Content/bootstrap-datetimepicker.min.css")
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 }
@@ -39,6 +39,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="confirm-title top-buffer">
                 Партньор
             </div>
@@ -54,6 +55,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="confirm-title top-buffer">
                 Тип
             </div>
@@ -69,6 +71,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="confirm-title top-buffer">
                 Дата
             </div>
@@ -76,6 +79,17 @@
                 <date-picker v-model="appointment.Date"
                              v-bind:config="dateOptions"
                              v-bind:class="{'validation-error': errors.date }"></date-picker>
+
+                <div v-if="errors.date">
+                    <span class="error-message">{{errors.date}}</span>
+                </div>
+            </div>
+
+            <div class="confirm-title top-buffer">
+                Брой
+            </div>
+            <div class="confirm-content">
+                <input type="text" class="form-control" v-model="appointment.Count" v-bind:class="{'validation-error': errors.count }"/>
 
                 <div v-if="errors.date">
                     <span class="error-message">{{errors.date}}</span>

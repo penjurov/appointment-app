@@ -15,7 +15,7 @@
                 appointment: {},
                 errors: {},
                 dateOptions: {
-                    format: 'MM/DD/YYYY',
+                    format: 'DD/MM/YYYY',
                     useCurrent: false,
                     showClose: true,
                     showClear: true,
@@ -48,6 +48,10 @@
 
         if (!vm.appointment.Date) {
             vm.errors.date = 'Изберете дата';
+        }
+
+        if (!vm.appointment.Count) {
+            vm.errors.count = 'Изберете брой';
         }
 
         if (Object.keys(vm.errors).length > 0) {

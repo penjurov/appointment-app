@@ -8,3 +8,7 @@
 .btn.confirm {
     margin-right: 10px;
 }
+
+.glyphicon-remove {
+    cursor: pointer;
+}

@@ -33,7 +33,7 @@
                 loadingRecords: false,
 
                 dateOptions: {
-                    format: 'MM/DD/YYYY',
+                    format: 'DD/MM/YYYY',
                     useCurrent: false,
                     showClose: true,
                     showClear: true,
@@ -43,13 +43,14 @@
             methods: {
                 getFormatedDate: self.getFormatedDate,
                 search: self.search,
+                remove: self.remove,
                 clear: self.clear
             }
         });
     };
 
     self.getFormatedDate = function (date) {
-        return moment(date).format('DD/MM/YYYY');
+        return moment(date, 'DD/MM/YYYY').format('DD/MM/YYYY');
     };
 
     self.search = function () {
@@ -103,7 +104,21 @@
         self.vm.loadingRecords = true;
 
         return vm.filter;
-    }
+    };
+
+    self.remove = function (appointment) {
+        if (customConfirm({
+            title: 'Сигурни ли сте че искате да премахнете ангажиментът на ' + appointment.EmployeeName + '?',
+            okCallBack: function () {
+                self.appointmentsListIO.remove(appointment.Id,
+                    function () {
+                        self.loadAppointments();
+                    }
+                );
+            }
+        }));
+    };
+
     return {
         init: self.init,
         loadMoreRecords: self.loadMoreRecords
@@ -134,6 +149,16 @@ var AppointmentsListIO = function () {
                 self.ioCompleted(response, callBack);
             },
             error: function (response) {
+                self.ioCompleted(response, callBack);
+            }
+        });
+    };
+
+    self.remove = function (id, callBack) {
+        $.ajax({
+            url: '/appointmentInfo/delete/' + id,
+            type: 'POST',
+            success: function (response) {
                 self.ioCompleted(response, callBack);
             }
         });

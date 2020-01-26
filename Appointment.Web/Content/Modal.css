@@ -4,7 +4,7 @@
     width: 640px;
 }
 
-.confirm-title {
+.custom-modal .confirm-title {
     font-size: 26px;
     font-weight: 600;
     font-style: normal;
@@ -15,7 +15,7 @@
     color: #000000;
 }
 
-.confirm-content {
+.custom-modal .confirm-content {
     font-size: 14px;
     font-weight: 600;
     font-style: normal;

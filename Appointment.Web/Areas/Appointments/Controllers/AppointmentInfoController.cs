@@ -65,5 +65,22 @@ namespace Appointment.Web.Areas.Appointment.Controllers
 
             return Json(response, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult Delete(Guid id)
+        {
+            var response = new ResponseModel();
+
+            try
+            {
+                Service.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                response.SetException(ex);
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
     }
 }
