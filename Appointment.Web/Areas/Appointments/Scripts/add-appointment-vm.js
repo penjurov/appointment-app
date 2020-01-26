@@ -15,7 +15,7 @@
                 appointment: {},
                 errors: {},
                 dateOptions: {
-                    format: 'DD/MM/YYYY',
+                    format: 'MM/DD/YYYY',
                     useCurrent: false,
                     showClose: true,
                     showClear: true,
